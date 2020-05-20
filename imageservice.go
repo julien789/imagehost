@@ -92,6 +92,10 @@ func saveHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	if _, err := os.Stat("/images/"); os.IsNotExist(err) {
+		os.Mkdir("images", 0600)
+	}
+
 	http.HandleFunc("/img/", imgHandler)
 	http.HandleFunc("/upload/", uploadHandler)
 	http.HandleFunc("/save/", saveHandler)
