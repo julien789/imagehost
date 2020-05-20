@@ -96,7 +96,7 @@ func getPort() string {
 	if port == "" {
 		return "8080"
 	}
-	return ":" + port
+	return port
 }
 
 func main() {
@@ -112,4 +112,3 @@ func main() {
 
 	log.Fatal(http.ListenAndServe(":"+getPort(), nil))
 }
-
