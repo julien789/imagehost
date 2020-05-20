@@ -91,6 +91,14 @@ func saveHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/img/"+ID, http.StatusFound)
 }
 
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		return "8080"
+	}
+	return ":" + port
+}
+
 func main() {
 	if _, err := os.Stat("/images/"); os.IsNotExist(err) {
 		os.Mkdir("images", 0600)
@@ -102,5 +110,6 @@ func main() {
 
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./images"))))
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":"+getPort(), nil))
 }
+
